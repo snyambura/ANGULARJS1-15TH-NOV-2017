@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<!--controller in main.js-->
+<div ng-app="angularApp" ng-controller="mainCtrl">
+    {{names}}
+    <br/>
+
+<!--model-->
+    Name: <input ng-model="name">
+
+    <!--interpolation-->
+    <h1>You entered: {{name}}</h1>
+
+    {{colors}}
+
+
+<!--filter-->
+    <P> My name is {{names | uppercase}}</P>
+
+    <tr ng-repeat="color in colors | orderBy:'-color'">
+        <td>{{color.name}}</td>
+        <td>{{color.hexcode}}</td>
+    </tr>
+
+
+</div>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>-->
+
+<script src="main.js"></script>
+
+
+</body>
+</html>
