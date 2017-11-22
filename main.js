@@ -1,6 +1,59 @@
 var todolist = angular.module("todolist", []);
 
-todolist.controller('mainCtrl', function($scope){
+
+todolist.factory('Taskfactory', function ($http, $q) {
+
+   return{
+       getItems: function () {
+           var deferred = $q.defer();
+           $http({
+               method:"GET",
+               url: "https://jsonplaceholder.typicode.com/posts"
+           }).then(function (response) {
+               deferred.resolve(response.data);
+           }).catch(function (err) {
+               deferred.reject(err);
+           });
+           return deferred.promise;
+       }
+   }
+
+});
+
+todolist.service('Taskservice', function ($http, $q) {
+
+    return{
+        getItem: function () {
+            var deferred = $q.defer();
+            $http({
+                method:"GET",
+                url: "https://jsonplaceholder.typicode.com/posts"
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        }
+    }
+
+});
+
+
+todolist.controller('mainCtrl', function(Taskfactory, Taskservice, $scope){
+
+    Taskfactory.getItems().then(function (res) {
+            $scope.blogs=res;
+        }).catch(function (err) {
+            console.log(err);
+        });
+
+
+    Taskservice.getItem().then(function (res) {
+        $scope.posts=res;
+    }).catch(function (err) {
+        console.log(err);
+    });
 
         $scope.todos = [
             {
